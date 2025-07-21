@@ -26,7 +26,7 @@ Modern, fully responsive website for a construction company. Built with Next.js,
 
 1.Clone the repository:
 
-git clone https://github.com/your-username/urbanbuild.git
+git clone https://github.com/Steven0319/construction-website.git
 
 2.Install dependencies:
 
@@ -36,11 +36,9 @@ npm install
 
 npm run dev
 
-
 📱 Responsive Design
 
 Mobile-first design, fully optimized for mobile, tablet, and desktop screens with a modern look, smooth transitions, and excellent usability.
-
 
 📸 Demo
 
@@ -57,4 +55,3 @@ Mobile-first design, fully optimized for mobile, tablet, and desktop screens wit
 🎨 Smooth, consistent transitions
 
 🌐 SEO-optimized with Next.js best practices
-
