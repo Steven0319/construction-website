@@ -128,10 +128,9 @@ const Services = () => {
           <Tabs
             defaultValue="construction"
             onValueChange={setActiveTab}
-            className="flex flex-col xl:flex-row gap-[30px]"
+            className="flex flex-wrap xl:flex-nowrap gap-[30px]"
           >
-            {/* Tabs List */}
-            <TabsList className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-[30px] xl:w-[345px]">
+            <TabsList className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-[30px] xl:w-[345px] w-full">
               {serviceData.map((item) => (
                 <TabsTrigger
                   key={item.name}
@@ -156,8 +155,7 @@ const Services = () => {
               ))}
             </TabsList>
 
-            {/* Tabs Content */}
-            <div className="flex-1 bg-white shadow-custom min-h-[490px] p-[30px]">
+            <div className="flex-1 w-full xl:w-auto bg-white shadow-custom min-h-[490px] p-[30px]">
               {serviceData.map((item) => (
                 <TabsContent key={item.name} value={item.name} className="m-0">
                   <motion.div
@@ -167,7 +165,6 @@ const Services = () => {
                     exit="exit"
                     className="flex flex-col md:flex-row gap-[30px]"
                   >
-                    {/* Images */}
                     <div className="flex md:flex-col gap-5 xl:gap-[30px]">
                       {item.thumbs.map((thumb, index) => (
                         <div
@@ -184,7 +181,6 @@ const Services = () => {
                       ))}
                     </div>
 
-                    {/* Text and Button */}
                     <div className="flex-1">
                       <h3 className="h3 mb-6">{item.title}</h3>
                       <p className="mb-10">{item.description}</p>
