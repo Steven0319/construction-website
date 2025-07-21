@@ -157,7 +157,7 @@ const Services = () => {
             </TabsList>
 
             {/* Tabs Content */}
-            <div className="flex-1 bg-white shadow-custom h-[490px] p-[30px]">
+            <div className="flex-1 bg-white shadow-custom min-h-[490px] p-[30px]">
               {serviceData.map((item) => (
                 <TabsContent key={item.name} value={item.name} className="m-0">
                   <motion.div
