@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Tabs, TabsList, TabsContent, TabsTrigger } from "./ui/tabs";
 import Image from "next/image";
 import Button from "./Button";
 import {
@@ -14,18 +13,13 @@ import Pretitle from "./Pretitle";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/variants";
 
-const fadeInVariant = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.2, delay: 0.1 } },
-};
-
 const serviceData = [
   {
     name: "construction",
     icon: <PiWallFill />,
     title: "Construction Services",
     description:
-      "We build with precision and innovation, ensuring that every structure is strong, reliable, and built to last. From foundations to finishing touches, our expertise transforms ideas into reality.",
+      "We build with precision and innovation, ensuring every structure is strong and built to last.",
     serviceList: [
       "Residential Builds",
       "Structural Design",
@@ -35,8 +29,8 @@ const serviceData = [
       "Interior Finish",
     ],
     thumbs: [
-      { url: "/assets/img/services/thumb-1.jpg" },
-      { url: "/assets/img/services/thumb-2.jpg" },
+      "/assets/img/services/thumb-1.jpg",
+      "/assets/img/services/thumb-2.jpg",
     ],
   },
   {
@@ -44,7 +38,7 @@ const serviceData = [
     icon: <PiPaintRollerFill />,
     title: "Renovation Services",
     description:
-      "Revitalizing spaces with modern designs and high-quality craftsmanship. Whether upgrading a home or remodeling an office, we bring fresh life to every project.",
+      "Revitalizing spaces with modern designs and high-quality craftsmanship.",
     serviceList: [
       "Kitchen Remodel",
       "Basement Finish",
@@ -54,8 +48,8 @@ const serviceData = [
       "Painting",
     ],
     thumbs: [
-      { url: "/assets/img/services/thumb-3.jpg" },
-      { url: "/assets/img/services/thumb-4.jpg" },
+      "/assets/img/services/thumb-3.jpg",
+      "/assets/img/services/thumb-4.jpg",
     ],
   },
   {
@@ -63,7 +57,7 @@ const serviceData = [
     icon: <PiWrenchFill />,
     title: "Restoration Services",
     description:
-      "Bringing damaged or aging structures back to life. We specialize in restoring historical landmarks, fire-damaged buildings, and water-damaged properties with meticulous care.",
+      "Restoring structures with care, from water damage to historic building renovations.",
     serviceList: [
       "Historic Restore",
       "Water Damage",
@@ -73,8 +67,8 @@ const serviceData = [
       "Roof Restore",
     ],
     thumbs: [
-      { url: "/assets/img/services/thumb-4.jpg" },
-      { url: "/assets/img/services/thumb-5.jpg" },
+      "/assets/img/services/thumb-4.jpg",
+      "/assets/img/services/thumb-5.jpg",
     ],
   },
   {
@@ -82,7 +76,7 @@ const serviceData = [
     icon: <PiUserGearFill />,
     title: "Consulting Services",
     description:
-      "Providing expert guidance for construction and renovation projects. From planning and budgeting to compliance and sustainability, our consulting service ensures project success.",
+      "Expert guidance for construction and renovation success, including planning, budgeting and permits.",
     serviceList: [
       "Project Plans",
       "Costing",
@@ -92,117 +86,88 @@ const serviceData = [
       "Safety",
     ],
     thumbs: [
-      { url: "/assets/img/services/thumb-1.jpg" },
-      { url: "/assets/img/services/thumb-3.jpg" },
+      "/assets/img/services/thumb-1.jpg",
+      "/assets/img/services/thumb-3.jpg",
     ],
   },
 ];
 
 const Services = () => {
-  const [activeTab, setActiveTab] = useState("construction");
+  const [active, setActive] = useState(null);
 
   return (
-    <section className="pt-16 xl:pt-32" id="services">
+    <section id="services" className="pt-16 xl:pt-32 px-4 container mx-auto">
       <motion.div
         variants={fadeIn("up", 0.2)}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: false, amount: 0.2 }}
-        className="container mx-auto"
+        className="text-center max-w-2xl mx-auto mb-16"
       >
-        <div className="text-center max-w-[540px] mx-auto mb-20">
-          <Pretitle text="Our Services" center />
-          <h2 className="h2 mb-3">Solutions We Provide</h2>
-          <p className="mb-11 max-w-[480px] mx-auto">
-            Offering tailored construction solutions, from planning to
-            completion, with a focus on quality and innovation.
-          </p>
-        </div>
+        <Pretitle text="Our Services" center />
+        <h2 className="h2 mb-3">Solutions We Provide</h2>
+        <p>
+          Offering tailored construction solutions, from planning to completion,
+          with a focus on quality and innovation.
+        </p>
+      </motion.div>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-16">
+        {serviceData.map((item, idx) => (
+          <motion.div
+            key={idx}
+            variants={fadeIn("up", 0.1 * idx)}
+            initial="hidden"
+            whileInView="show"
+            className={`cursor-pointer p-6 rounded-xl shadow-md bg-white hover:scale-105 transition-transform duration-300 flex flex-col items-center gap-4 ${
+              active === idx ? "ring-2 ring-primary" : ""
+            }`}
+            onClick={() => setActive(idx)}
+          >
+            <div className="text-5xl text-primary">{item.icon}</div>
+            <h3 className="text-xl font-bold uppercase">{item.name}</h3>
+          </motion.div>
+        ))}
+      </div>
+
+      {active !== null && (
         <motion.div
-          variants={fadeIn("up", 0.3)}
+          variants={fadeIn("up", 0.2)}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: false, amount: 0.2 }}
+          className="flex flex-col lg:flex-row gap-8 bg-white p-8 rounded-xl shadow-md"
         >
-          <Tabs
-            defaultValue="construction"
-            onValueChange={setActiveTab}
-            className="flex flex-wrap xl:flex-nowrap gap-[30px]"
-          >
-            <TabsList className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-[30px] xl:w-[345px] w-full">
-              {serviceData.map((item) => (
-                <TabsTrigger
-                  key={item.name}
-                  value={item.name}
-                  className={`w-full h-[100px] flex items-center relative shadow-custom rounded-none p-0 ${
-                    activeTab === item.name ? "bg-primary text-white" : ""
-                  }`}
+          <div className="flex-1 grid grid-cols-2 gap-4">
+            {serviceData[active].thumbs.map((src, index) => (
+              <div key={index} className="relative w-full h-48 md:h-64">
+                <Image
+                  src={src}
+                  alt="service image"
+                  fill
+                  className="rounded-lg object-cover"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <h3 className="text-3xl font-bold mb-4">
+              {serviceData[active].title}
+            </h3>
+            <p className="mb-6">{serviceData[active].description}</p>
+            <ul className="grid grid-cols-2 gap-2 mb-6">
+              {serviceData[active].serviceList.map((service, idx) => (
+                <li
+                  key={idx}
+                  className="flex items-center gap-2 text-primary font-medium"
                 >
-                  <div
-                    className={`w-[100px] h-[100px] flex items-center justify-center absolute left-0 ${
-                      activeTab === item.name
-                        ? "bg-accent text-primary"
-                        : "bg-white text-primary"
-                    }`}
-                  >
-                    <div className="text-4xl">{item.icon}</div>
-                  </div>
-                  <div className="ml-[120px] uppercase font-primary text-base font-semibold tracking-[.6px]">
-                    {item.name}
-                  </div>
-                </TabsTrigger>
+                  <span className="w-2 h-2 bg-accent rounded-full"></span>
+                  {service}
+                </li>
               ))}
-            </TabsList>
-
-            <div className="flex-1 w-full xl:w-auto bg-white shadow-custom min-h-[490px] p-[30px]">
-              {serviceData.map((item) => (
-                <TabsContent key={item.name} value={item.name} className="m-0">
-                  <motion.div
-                    variants={fadeInVariant}
-                    initial="hidden"
-                    whileInView="show"
-                    exit="exit"
-                    className="flex flex-col md:flex-row gap-[30px]"
-                  >
-                    <div className="flex md:flex-col gap-5 xl:gap-[30px]">
-                      {item.thumbs.map((thumb, index) => (
-                        <div
-                          key={index}
-                          className="relative w-[140px] xl:w-[200px] h-[140px] xl:h-[200px]"
-                        >
-                          <Image
-                            src={thumb.url}
-                            alt="service-thumb"
-                            fill
-                            className="object-cover rounded-lg"
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex-1">
-                      <h3 className="h3 mb-6">{item.title}</h3>
-                      <p className="mb-10">{item.description}</p>
-                      <ul className="grid grid-cols-2 gap-4 mb-12">
-                        {item.serviceList.map((service, idx) => (
-                          <li key={idx} className="flex items-center gap-4">
-                            <div className="w-[6px] h-[6px] bg-accent"></div>
-                            <div className="capitalize font-medium text-primary">
-                              {service}
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                      <Button text="Read more" />
-                    </div>
-                  </motion.div>
-                </TabsContent>
-              ))}
-            </div>
-          </Tabs>
+            </ul>
+            <Button text="Read more" />
+          </div>
         </motion.div>
-      </motion.div>
+      )}
     </section>
   );
 };
